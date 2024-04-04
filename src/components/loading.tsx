@@ -1,7 +1,12 @@
-import { ActivityIndicator } from "react-native"
+import { colors } from "@/styles/colors";
+import { ActivityIndicator, StyleSheet } from "react-native";
 
 export function Loading() {
-  return (
-    <ActivityIndicator className="flex-1 bg-green-500 items-center justify-center text-orange-500" />
-  )
+  return <ActivityIndicator style={styles.loading} />;
 }
+
+const styles = StyleSheet.create({
+  loading: {
+    marginTop: 10,
+  },
+});

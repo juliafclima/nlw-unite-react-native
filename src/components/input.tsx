@@ -1,26 +1,61 @@
-import { ReactNode } from "react"
-import { TextInput, View, TextInputProps } from "react-native"
+import React from "react";
+import { View, TextInput, StyleSheet, TextInputProps } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { colors } from "@/styles/colors";
 
-import { colors } from "@/styles/colors"
+type IconName = "ticket-confirmation-outline";
 
-function Input({ children }: { children: ReactNode }) {
+interface InputProps extends TextInputProps {
+  icon?: IconName;
+  placeholderTextColor?: string;
+}
+
+const Input: React.FC<InputProps> = ({
+  icon,
+  placeholderTextColor,
+  ...rest
+}) => {
   return (
-    <View className="w-full h-14 flex-row items-center gap-3 p-3 border border-green-400 rounded-lg">
-      {children}
+    <View style={styles.inputContainer}>
+      <TextInput
+        {...rest}
+        style={[styles.input, { color: placeholderTextColor }]}
+        placeholderTextColor={placeholderTextColor}
+      />
+      
+      {icon && (
+        <MaterialCommunityIcons
+          name={icon}
+          color={colors.green[200]}
+          size={20}
+          style={styles.icon}
+        />
+      )}
     </View>
-  )
-}
+  );
+};
 
-function Field({ ...rest }: TextInputProps) {
-  return (
-    <TextInput
-      className="flex-1 text-white text-base font-regular"
-      placeholderTextColor={colors.gray[200]}
-      {...rest}
-    />
-  )
-}
+const styles = StyleSheet.create({
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.gray[300],
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
 
-Input.Field = Field
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+    color: colors.gray[200],
+  },
 
-export { Input }
+  icon: {
+    marginRight: 10,
+  },
+});
+
+export { Input };
