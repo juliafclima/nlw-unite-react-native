@@ -35,7 +35,7 @@ export function Button({ title, isLoading = false, ...rest }: Props) {
 const styles = StyleSheet.create({
   button: {
     marginTop: 10,
-    backgroundColor: colors.green[500],
+    backgroundColor: colors.orange[500],
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

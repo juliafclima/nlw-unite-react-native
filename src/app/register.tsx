@@ -5,7 +5,7 @@ import { colors } from "@/styles/colors";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 
-export default function Home() {
+export default function Register() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -18,15 +18,22 @@ export default function Home() {
 
       <View style={styles.inputAcesso}>
         <Input
-          icon="ticket-confirmation-outline"
-          placeholder="Código do ingresso"
+          icon="account-circle-outline"
+          placeholder="Nome completo"
           placeholderTextColor={colors.gray[200]}
         />
 
-        <Button title="Acessar credencial" />
+        <Input
+          icon="email-open-outline"
+          placeholder="Email"
+          placeholderTextColor={colors.gray[200]}
+          keyboardType="email-address"
+        />
 
-        <Link style={styles.link} href="/register">
-          Ainda não possui ingresso?
+        <Button title="Realizar inscrição" />
+
+        <Link style={styles.link} href="/">
+          Já possui ingresso
         </Link>
       </View>
     </View>

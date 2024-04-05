@@ -3,7 +3,10 @@ import { View, TextInput, StyleSheet, TextInputProps } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/styles/colors";
 
-type IconName = "ticket-confirmation-outline";
+type IconName =
+  | "ticket-confirmation-outline"
+  | "account-circle-outline"
+  | "email-open-outline";
 
 interface InputProps extends TextInputProps {
   icon?: IconName;
@@ -13,6 +16,7 @@ interface InputProps extends TextInputProps {
 const Input: React.FC<InputProps> = ({
   icon,
   placeholderTextColor,
+  keyboardType,
   ...rest
 }) => {
   return (
@@ -21,8 +25,9 @@ const Input: React.FC<InputProps> = ({
         {...rest}
         style={[styles.input, { color: placeholderTextColor }]}
         placeholderTextColor={placeholderTextColor}
+        keyboardType={keyboardType}
       />
-      
+
       {icon && (
         <MaterialCommunityIcons
           name={icon}
