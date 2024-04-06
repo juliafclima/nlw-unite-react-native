@@ -1,11 +1,32 @@
-import { View, Image, StatusBar, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+import { View, Image, StatusBar, StyleSheet, Alert } from "react-native";
+import { Link, router } from "expo-router";
 
 import { colors } from "@/styles/colors";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
+import { useState } from "react";
 
 export default function Register() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+
+  function validarEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+  function handleRegister() {
+    if (!nome.trim() || !email.trim()) {
+      return Alert.alert("Inscrição", "Preencha todos os campos!");
+    }
+
+    if (!validarEmail(email)) {
+      return Alert.alert("Inscrição", "O email inserido não é válido!");
+    }
+
+    router.push("/ticket");
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -21,6 +42,7 @@ export default function Register() {
           icon="account-circle-outline"
           placeholder="Nome completo"
           placeholderTextColor={colors.gray[200]}
+          onChangeText={setNome}
         />
 
         <Input
@@ -28,9 +50,10 @@ export default function Register() {
           placeholder="Email"
           placeholderTextColor={colors.gray[200]}
           keyboardType="email-address"
+          onChangeText={setEmail}
         />
 
-        <Button title="Realizar inscrição" />
+        <Button title="Realizar inscrição" onPress={handleRegister} />
 
         <Link style={styles.link} href="/">
           Já possui ingresso
@@ -59,7 +82,7 @@ const styles = StyleSheet.create({
   },
 
   link: {
-    color: colors.green[200],
+    color: colors.white,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 20,

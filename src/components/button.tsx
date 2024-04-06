@@ -43,8 +43,9 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: colors.white,
+    color: colors.green[500],
     fontSize: 16,
+    fontWeight: "bold",
   },
 
   loading: {

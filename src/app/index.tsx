@@ -1,11 +1,20 @@
-import { View, Image, StatusBar, StyleSheet } from "react-native";
+import { View, Image, StatusBar, StyleSheet, Alert } from "react-native";
 import { Link } from "expo-router";
 
 import { colors } from "@/styles/colors";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
+import { useState } from "react";
 
 export default function Home() {
+  const [code, setCode] = useState("");
+
+  function handleAcessCredetial() {
+    if (!code.trim()) {
+      return Alert.alert("Credencial", "Digite o código do ingresso");
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -21,9 +30,13 @@ export default function Home() {
           icon="ticket-confirmation-outline"
           placeholder="Código do ingresso"
           placeholderTextColor={colors.gray[200]}
+          /* onChangeText={(valor) => {
+            setCode(valor);
+          }} */
+          onChangeText={setCode}
         />
 
-        <Button title="Acessar credencial" />
+        <Button title="Acessar credencial" onPress={handleAcessCredetial} />
 
         <Link style={styles.link} href="/register">
           Ainda não possui ingresso?
@@ -52,7 +65,7 @@ const styles = StyleSheet.create({
   },
 
   link: {
-    color: colors.green[200],
+    color: colors.white,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 20,
