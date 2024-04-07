@@ -52,7 +52,7 @@ export function Credential({ onChangeAvatar, onExpandQRCode, image }: Props) {
 
         <Text style={styles.imageTextEmail}>Juliafclima@hotmail.com</Text>
 
-        <QRCode value="teste" size={120} />
+        <QRCode value="https://projeto-portfolio-ruddy.vercel.app/" size={150} />
 
         <TouchableOpacity
           activeOpacity={0.7}

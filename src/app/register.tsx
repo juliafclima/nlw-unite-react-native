@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { View, Image, StatusBar, StyleSheet, Alert } from "react-native";
 import { Link, router } from "expo-router";
 
 import { colors } from "@/styles/colors";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
-import { useState } from "react";
 
 export default function Register() {
   const [nome, setNome] = useState("");

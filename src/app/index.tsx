@@ -1,5 +1,5 @@
 import { View, Image, StatusBar, StyleSheet, Alert } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 import { colors } from "@/styles/colors";
 import { Input } from "@/components/input";
@@ -13,6 +13,8 @@ export default function Home() {
     if (!code.trim()) {
       return Alert.alert("Credencial", "Digite o código do ingresso");
     }
+
+    router.push("/ticket");
   }
 
   return (

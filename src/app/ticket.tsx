@@ -4,6 +4,7 @@ import {
   View,
   Modal,
   Alert,
+  Linking,
   StatusBar,
   ScrollView,
   StyleSheet,
@@ -18,6 +19,7 @@ import { Header } from "@/components/header";
 import { colors } from "@/styles/colors";
 import { Button } from "@/components/button";
 import QRCode from "@/components/qrcode";
+import { router } from "expo-router";
 
 export default function Ticket() {
   const [image, setImage] = useState<string>("");
@@ -39,6 +41,22 @@ export default function Ticket() {
       Alert.alert("Foto", "Não foi possível selecionar a imagem");
     }
   }
+
+  const handleShareLinkedIn = async () => {
+    try {
+      const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        "https://github.com/juliafclima/nlw-unite-react-native"
+      )}`;
+
+      await Linking.openURL(linkedInShareUrl);
+    } catch (error: any) {
+      console.error("Erro ao compartilhar no LinkedIn:", error.message);
+    }
+  };
+
+  const handleRemoveTicket = () => {
+    router.push("/");
+  };
 
   return (
     <View style={styles.container}>
@@ -68,10 +86,14 @@ export default function Ticket() {
         </View>
 
         <View style={styles.button}>
-          <Button title="Compartilhar" />
+          <Button onPress={handleShareLinkedIn} title="Compartilhar" />
         </View>
 
-        <TouchableOpacity activeOpacity={0.7} style={styles.touchableOpacity}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.touchableOpacity}
+          onPress={handleRemoveTicket}
+        >
           <Text style={styles.touchableOpacityText}>Remover Ingresso</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -82,7 +104,10 @@ export default function Ticket() {
             activeOpacity={0.7}
             onPress={() => setExpendQRCode(false)}
           >
-            <QRCode value="teste" size={300} />
+            <QRCode
+              value="https://projeto-portfolio-ruddy.vercel.app/"
+              size={250}
+            />
             <Fontisto
               name="close"
               size={30}
