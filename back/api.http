@@ -1,4 +1,4 @@
-POST http://localhost:4000/events
+POST http://localhost:3333/events
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:4000/events/81a3f6db-45bf-4a6f-b10c-bcaf8837ac43/attendees
+POST http://localhost:3333/events/81a3f6db-45bf-4a6f-b10c-bcaf8837ac43/attendees
 Content-Type: application/json
 
 {
@@ -19,15 +19,15 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/events/81a3f6db-45bf-4a6f-b10c-bcaf8837ac43
+GET http://localhost:3333/events/81a3f6db-45bf-4a6f-b10c-bcaf8837ac43
 
 ###
 
-GET http://localhost:4000/attendees/3/badge
+GET http://localhost:3333/attendees/3/badge
 ###
 
-GET http://localhost:4000/attendees/4/check-in
+GET http://localhost:3333/attendees/4/check-in
 
 ###
 
-GET http://localhost:4000/events/81a3f6db-45bf-4a6f-b10c-bcaf8837ac43/attendees?query=diego
+GET http://localhost:3333/events/81a3f6db-45bf-4a6f-b10c-bcaf8837ac43/attendees?query=diego
