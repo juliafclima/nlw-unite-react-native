@@ -7,8 +7,14 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
-export function Credential() {
+type Props = {
+  image?: string;
+  onChangeAvatar: () => void;
+};
+
+export function Credential({ onChangeAvatar, image }: Props) {
   return (
     <View style={styles.container}>
       <Image source={require("@/assets/ticket/band.png")} style={styles.band} />
@@ -26,10 +32,16 @@ export function Credential() {
           <View style={styles.containerImage} />
         </ImageBackground>
 
-        <Image
-          style={styles.image}
-          source={{ uri: "https://github.com/juliafclima.png" }}
-        />
+        {image ? (
+          <Image
+            style={styles.image}
+            source={{ uri: "https://github.com/juliafclima.png" }}
+          />
+        ) : (
+          <TouchableOpacity activeOpacity={0.7} style={styles.image}>
+            <Feather name="camera" color={colors.green[400]} size={32} />
+          </TouchableOpacity>
+        )}
 
         <Text style={styles.imageText}>Julia Lima</Text>
 
@@ -53,6 +65,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "stretch",
     alignItems: "center",
+    paddingHorizontal: 20,
   },
 
   band: {
@@ -74,9 +87,10 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    paddingHorizontal: 6,
+    paddingHorizontal: 10,
     paddingVertical: 8,
     height: 140,
+    width: "100%",
     alignItems: "center",
     alignSelf: "stretch",
     borderBottomColor: "rgba(255, 255, 255, 0.2)",
@@ -144,5 +158,5 @@ const styles = StyleSheet.create({
 
   qrCodeAmpliarBotao: {
     marginTop: 10,
-  }
+  },
 });

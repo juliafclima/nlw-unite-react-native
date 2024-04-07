@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green[400],
     alignItems: "center",
     justifyContent: "center",
+    padding: 30,
   },
 
   photo: {
