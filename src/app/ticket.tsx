@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -13,6 +13,7 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { Fontisto } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Credential } from "@/components/credential";
 import { Header } from "@/components/header";
@@ -25,6 +26,21 @@ export default function Ticket() {
   const [image, setImage] = useState<string>("");
   const [expendQRCode, setExpendQRCode] = useState<boolean>(false);
 
+  useEffect(() => {
+    async function getImageFromStorage() {
+      try {
+        const storedImage = await AsyncStorage.getItem("selectedImage");
+        if (storedImage) {
+          setImage(storedImage);
+        }
+      } catch (error) {
+        console.warn("Erro ao obter imagem armazenada:", error);
+      }
+    }
+
+    getImageFromStorage();
+  }, []);
+
   async function handleSelectImage() {
     try {
       const imagemSelecionada = await ImagePicker.launchImageLibraryAsync({
@@ -35,6 +51,7 @@ export default function Ticket() {
 
       if (imagemSelecionada.assets) {
         setImage(imagemSelecionada.assets[0].uri);
+        await AsyncStorage.setItem("selectedImage", imagemSelecionada.assets[0].uri);
       }
     } catch (error) {
       console.warn(error);
