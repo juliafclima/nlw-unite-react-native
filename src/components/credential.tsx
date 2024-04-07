@@ -8,13 +8,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import QRCode from "@/components/qrcode";
 
 type Props = {
   image?: string;
-  onChangeAvatar: () => void;
+  onChangeAvatar?: () => void;
+  onExpandQRCode?: () => void;
 };
 
-export function Credential({ onChangeAvatar, image }: Props) {
+export function Credential({ onChangeAvatar, onExpandQRCode, image }: Props) {
   return (
     <View style={styles.container}>
       <Image source={require("@/assets/ticket/band.png")} style={styles.band} />
@@ -33,12 +35,15 @@ export function Credential({ onChangeAvatar, image }: Props) {
         </ImageBackground>
 
         {image ? (
-          <Image
-            style={styles.image}
-            source={{ uri: "https://github.com/juliafclima.png" }}
-          />
+          <TouchableOpacity activeOpacity={0.9} onPress={onChangeAvatar}>
+            <Image style={styles.image} source={{ uri: image }} />
+          </TouchableOpacity>
         ) : (
-          <TouchableOpacity activeOpacity={0.7} style={styles.image}>
+          <TouchableOpacity
+            onPress={onChangeAvatar}
+            activeOpacity={0.9}
+            style={styles.image}
+          >
             <Feather name="camera" color={colors.green[400]} size={32} />
           </TouchableOpacity>
         )}
@@ -47,12 +52,13 @@ export function Credential({ onChangeAvatar, image }: Props) {
 
         <Text style={styles.imageTextEmail}>Juliafclima@hotmail.com</Text>
 
-        <Image
-          style={styles.qrCode}
-          source={require("@/assets/ticket/qrcode.png")}
-        />
+        <QRCode value="teste" size={120} />
 
-        <TouchableOpacity style={styles.qrCodeAmpliarBotao} activeOpacity={0.7}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.qrCodeAmpliarBotao}
+          onPress={onExpandQRCode}
+        >
           <Text style={styles.qrCodeAmpliar}>Ampliar QRcode</Text>
         </TouchableOpacity>
       </View>
@@ -129,6 +135,9 @@ const styles = StyleSheet.create({
     height: 126,
     borderRadius: 100,
     marginTop: -102,
+    backgroundColor: "#999FAC",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   imageText: {
@@ -153,7 +162,7 @@ const styles = StyleSheet.create({
 
   qrCodeAmpliar: {
     color: colors.orange[500],
-    fontSize: 10,
+    fontSize: 13,
   },
 
   qrCodeAmpliarBotao: {

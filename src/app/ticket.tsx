@@ -1,26 +1,57 @@
+import { useState } from "react";
 import {
-  View,
-  StyleSheet,
-  StatusBar,
   Text,
+  View,
+  Modal,
+  Alert,
+  StatusBar,
   ScrollView,
+  StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
+import { Fontisto } from "@expo/vector-icons";
 
 import { Credential } from "@/components/credential";
 import { Header } from "@/components/header";
 import { colors } from "@/styles/colors";
 import { Button } from "@/components/button";
+import QRCode from "@/components/qrcode";
 
 export default function Ticket() {
+  const [image, setImage] = useState<string>("");
+  const [expendQRCode, setExpendQRCode] = useState<boolean>(false);
+
+  async function handleSelectImage() {
+    try {
+      const imagemSelecionada = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 4],
+      });
+
+      if (imagemSelecionada.assets) {
+        setImage(imagemSelecionada.assets[0].uri);
+      }
+    } catch (error) {
+      console.warn(error);
+      Alert.alert("Foto", "Não foi possível selecionar a imagem");
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Header title="Minha Credencial" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Credential />
+        <Credential
+          image={image}
+          onChangeAvatar={handleSelectImage}
+          onExpandQRCode={() => setExpendQRCode(true)}
+        />
+
         <FontAwesome
           name="angle-double-down"
           size={24}
@@ -44,6 +75,23 @@ export default function Ticket() {
           <Text style={styles.touchableOpacityText}>Remover Ingresso</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <Modal visible={expendQRCode} statusBarTranslucent animationType="slide">
+        <View style={styles.modal}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => setExpendQRCode(false)}
+          >
+            <QRCode value="teste" size={300} />
+            <Fontisto
+              name="close"
+              size={30}
+              color="black"
+              style={styles.modalIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -89,5 +137,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 20,
+  },
+
+  modal: {
+    flex: 1,
+    backgroundColor: colors.green[500],
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modalIcon: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 20,
+    color: colors.orange[500],
   },
 });
