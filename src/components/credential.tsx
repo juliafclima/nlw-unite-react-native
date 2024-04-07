@@ -28,7 +28,7 @@ export function Credential({ onChangeAvatar, onExpandQRCode, image }: Props) {
         >
           <View style={styles.containerConteudo}>
             <Text style={styles.titulo}>Unite summit</Text>
-            <Text style={styles.numero}>#123</Text>
+            <Text style={styles.numero}>#LY6AXAYJFNZR</Text>
           </View>
 
           <View style={styles.containerImage} />
