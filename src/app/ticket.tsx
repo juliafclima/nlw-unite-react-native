@@ -30,6 +30,7 @@ export default function Ticket() {
     async function getImageFromStorage() {
       try {
         const storedImage = await AsyncStorage.getItem("selectedImage");
+        
         if (storedImage) {
           setImage(storedImage);
         }
@@ -51,7 +52,11 @@ export default function Ticket() {
 
       if (imagemSelecionada.assets) {
         setImage(imagemSelecionada.assets[0].uri);
-        await AsyncStorage.setItem("selectedImage", imagemSelecionada.assets[0].uri);
+        
+        await AsyncStorage.setItem(
+          "selectedImage",
+          imagemSelecionada.assets[0].uri
+        );
       }
     } catch (error) {
       console.warn(error);
